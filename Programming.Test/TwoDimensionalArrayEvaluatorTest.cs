@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using System.Collections.Generic;
+using System;
+using System.IO;
 
 namespace Programming.Test {
     [TestClass]
@@ -82,17 +84,34 @@ namespace Programming.Test {
 
         }
 
-        [TestMethod]
+
+        //you have to have the 10 million file for this but it is not included in github because it is too large
+        //[TestMethod]
         public void TenMillionByFiveWith3487610Regions() {
             var grid = TwoDimimensionalArrayHelper.GetTenMillionsRecords();
             Programming.TwoDimensionalArrayEvaluator arrayEvaluator = new Programming.TwoDimensionalArrayEvaluator(grid, 650);
             Assert.IsTrue(arrayEvaluator.SubRegions.Count == 3487610);
         }
 
-        [TestMethod]
+        //you have to have the 10 million file for this but it is not included in github because it is too large
+        //[TestMethod]
         public void Read10MilFile() {
             var grid = TwoDimimensionalArrayHelper.GetTenMillionsRecords();
             Assert.IsTrue(grid.Length > 0);
+        }
+
+        //[TestMethod]
+        public void GenerateSomeData() {
+            var dir = AppDomain.CurrentDomain.BaseDirectory;
+            var path = Path.Combine(dir, "testdata.csv");
+            using (var sw = new System.IO.StreamWriter(path, false, System.Text.Encoding.Default)) {
+
+                for (int x = 0; x < 10000000; x++) {
+                    var values = DataGenerator.RandomValues(0, 1000, 5);
+                    sw.WriteLine(string.Join(",", values));
+                }
+            }
+            Assert.IsTrue(System.IO.File.Exists(path));
         }
 
     }    
