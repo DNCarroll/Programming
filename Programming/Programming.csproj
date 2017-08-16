@@ -43,6 +43,7 @@
     <Compile Include="DataGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TwoDimensionalArrayEvaluator.cs" />
+    <Compile Include="TwoDimensionalArrayEvaluatorMulitThreaded.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Programming.Test {
     [TestClass]
@@ -6,61 +8,76 @@ namespace Programming.Test {
 
         [TestMethod]
         public void SixBySixWithTwoSubRegions() {
-            Programming.TwoDimensionalArrayEvaluator arrayEvaluator = new Programming.TwoDimensionalArrayEvaluator(DataGenerator.TestGrid(), 170);
+            Programming.TwoDimensionalArrayEvaluator arrayEvaluator = new Programming.TwoDimensionalArrayEvaluator(DataGenerator.TestGrid1(), 170);
             Assert.IsTrue(arrayEvaluator.SubRegions.Count == 2);
         }
 
         [TestMethod]
         public void SixBySixWithThreeSubRegions() {
-            Programming.TwoDimensionalArrayEvaluator arrayEvaluator = new Programming.TwoDimensionalArrayEvaluator(DataGenerator.TestGrid(), 200);
+            Programming.TwoDimensionalArrayEvaluator arrayEvaluator = new Programming.TwoDimensionalArrayEvaluator(DataGenerator.TestGrid1(), 200);
             Assert.IsTrue(arrayEvaluator.SubRegions.Count == 3);
         }
 
         [TestMethod]
+        public void SixBySixWithThreeSubRegionsValues() {
+            Programming.TwoDimensionalArrayEvaluator arrayEvaluator = new Programming.TwoDimensionalArrayEvaluator(DataGenerator.TestGrid1(), 200);
+            var passed =false;
+            if (arrayEvaluator.SubRegions.Count == 3) {
+                var s1 = arrayEvaluator.SubRegions[0].Signals;
+                var s2 = arrayEvaluator.SubRegions[1].Signals;
+                var s3 = arrayEvaluator.SubRegions[2].Signals;
+                passed = passesSignalTest(s1, new Signal<int>[] { new Signal<int>(1, 1, 210) }) &&
+                    passesSignalTest(s2, new Signal<int>[] {
+                        new Signal<int>(3, 2, 250),
+                        new Signal<int>(3, 3, 250),
+                        new Signal<int>(4, 1, 230),
+                        new Signal<int>(4, 2, 245),
+                        new Signal<int>(5, 1, 220)
+
+                    }) &&
+                    passesSignalTest(s3, new Signal<int>[] {
+                        new Signal<int>(5, 4, 250),
+                        new Signal<int>(5, 5, 250),
+                    });
+            }
+            Assert.IsTrue(passed);
+        }
+
+        [TestMethod]
+        public void SixBySixWithThreeSubRegionsCenterOfMass() {
+            Programming.TwoDimensionalArrayEvaluator arrayEvaluator = new Programming.TwoDimensionalArrayEvaluator(DataGenerator.TestGrid1(), 200);
+            Assert.IsTrue(
+                arrayEvaluator.SubRegions.Count ==3 &&
+                arrayEvaluator.SubRegions[0].CenterOfMass.X ==1 &&
+                arrayEvaluator.SubRegions[0].CenterOfMass.Y==1 &&
+                arrayEvaluator.SubRegions[1].CenterOfMass.X >3 && arrayEvaluator.SubRegions[1].CenterOfMass.X <4 &&
+                arrayEvaluator.SubRegions[1].CenterOfMass.Y > 1 && arrayEvaluator.SubRegions[1].CenterOfMass.Y < 2 &&
+                arrayEvaluator.SubRegions[2].CenterOfMass.X == 5 &&
+                arrayEvaluator.SubRegions[2].CenterOfMass.Y >4 && arrayEvaluator.SubRegions[2].CenterOfMass.Y < 5
+                );
+        }
+
+        bool passesSignalTest(List<Signal<int>> signals,
+            Signal<int>[] expectedSignals) {
+            var passed = true;
+            if (signals.Count == expectedSignals.Length) {
+                foreach (var signal in expectedSignals) {
+                    if (signals.FirstOrDefault(s => s.X == signal.X && s.Y == signal.Y && signal.Value == s.Value) == null) {
+                        passed = false;
+                        break;
+                    }
+                }
+            }
+            else {
+                passed = false;
+            }
+            return passed;
+        }
+
+        [TestMethod]
         public void SixBySixWithFourSubRegions() {
-            int[,] grid = new int[6, 6];
-            grid[0, 0] = 0;
-            grid[0, 1] = 115;
-            grid[0, 2] = 5;
-            grid[0, 3] = 15;
-            grid[0, 4] = 0;
-            grid[0, 5] = 5;
 
-            grid[1, 0] = 80;
-            grid[1, 1] = 210;
-            grid[1, 2] = 0;
-            grid[1, 3] = 5;
-            grid[1, 4] = 205;
-            grid[1, 5] = 0;
-
-            grid[2, 0] = 45;
-            grid[2, 1] = 60;
-            grid[2, 2] = 145;
-            grid[2, 3] = 175;
-            grid[2, 4] = 95;
-            grid[2, 5] = 25;
-
-            grid[3, 0] = 95;
-            grid[3, 1] = 5;
-            grid[3, 2] = 250;
-            grid[3, 3] = 250;
-            grid[3, 4] = 115;
-            grid[3, 5] = 5;
-
-            grid[4, 0] = 170;
-            grid[4, 1] = 230;
-            grid[4, 2] = 245;
-            grid[4, 3] = 185;
-            grid[4, 4] = 165;
-            grid[4, 5] = 145;
-
-            grid[5, 0] = 145;
-            grid[5, 1] = 220;
-            grid[5, 2] = 140;
-            grid[5, 3] = 160;
-            grid[5, 4] = 250;
-            grid[5, 5] = 250;
-            Programming.TwoDimensionalArrayEvaluator arrayEvaluator = new Programming.TwoDimensionalArrayEvaluator(grid, 200);
+            Programming.TwoDimensionalArrayEvaluator arrayEvaluator = new Programming.TwoDimensionalArrayEvaluator(DataGenerator.TestGrid2(), 200);
             Assert.IsTrue(arrayEvaluator.SubRegions.Count == 4);
 
         }

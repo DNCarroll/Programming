@@ -27,7 +27,7 @@ namespace Programming {
             return ret;
         }
 
-        public static int[,] TestGrid() {
+        public static int[,] TestGrid1() {
             int[,] grid = new int[6, 6];
             grid[0, 0] = 0;
             grid[0, 1] = 115;
@@ -41,6 +41,52 @@ namespace Programming {
             grid[1, 2] = 0;
             grid[1, 3] = 5;
             grid[1, 4] = 5;
+            grid[1, 5] = 0;
+
+            grid[2, 0] = 45;
+            grid[2, 1] = 60;
+            grid[2, 2] = 145;
+            grid[2, 3] = 175;
+            grid[2, 4] = 95;
+            grid[2, 5] = 25;
+
+            grid[3, 0] = 95;
+            grid[3, 1] = 5;
+            grid[3, 2] = 250;
+            grid[3, 3] = 250;
+            grid[3, 4] = 115;
+            grid[3, 5] = 5;
+
+            grid[4, 0] = 170;
+            grid[4, 1] = 230;
+            grid[4, 2] = 245;
+            grid[4, 3] = 185;
+            grid[4, 4] = 165;
+            grid[4, 5] = 145;
+
+            grid[5, 0] = 145;
+            grid[5, 1] = 220;
+            grid[5, 2] = 140;
+            grid[5, 3] = 160;
+            grid[5, 4] = 250;
+            grid[5, 5] = 250;
+            return grid;
+        }
+
+        public static int [,] TestGrid2() {
+            int[,] grid = new int[6, 6];
+            grid[0, 0] = 0;
+            grid[0, 1] = 115;
+            grid[0, 2] = 5;
+            grid[0, 3] = 15;
+            grid[0, 4] = 0;
+            grid[0, 5] = 5;
+
+            grid[1, 0] = 80;
+            grid[1, 1] = 210;
+            grid[1, 2] = 0;
+            grid[1, 3] = 5;
+            grid[1, 4] = 205;
             grid[1, 5] = 0;
 
             grid[2, 0] = 45;
