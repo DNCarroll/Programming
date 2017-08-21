@@ -23,7 +23,7 @@ namespace Programming.Test {
         [TestMethod]
         public void SixBySixWithThreeSubRegionsValues() {
             Programming.TwoDimensionalArrayEvaluator arrayEvaluator = new Programming.TwoDimensionalArrayEvaluator(DataGenerator.TestGrid1(), 200);
-            var passed =false;
+            var passed = false;
             if (arrayEvaluator.SubRegions.Count == 3) {
                 var s1 = arrayEvaluator.SubRegions[0].Signals;
                 var s2 = arrayEvaluator.SubRegions[1].Signals;
