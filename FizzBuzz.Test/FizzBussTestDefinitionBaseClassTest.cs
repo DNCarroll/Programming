@@ -14,5 +14,10 @@ namespace FizzBuzz.Test {
         public void Instantiation_Null_Exception() =>
             Assert.Throws<ArgumentNullException>(() => new FizzBuzzMultiples(null, 4));
 
+        [Test]
+
+        public void Instantiation_NullByEmpty_Exception() =>
+            Assert.Throws<ArgumentNullException>(() => new FizzBuzzMultiples(null, 4));
+
     }
 }

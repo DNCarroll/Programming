@@ -11,7 +11,7 @@ namespace FizzBuzz {
         public string Token { get; set; }
 
         public FizzBuzzTestDefinitionBaseClass(string token) {
-            this.Token = token ?? throw new ArgumentNullException("token cannot be null");
+            this.Token = !string.IsNullOrEmpty(token)? token : throw new ArgumentNullException("token cannot be null or empty");
         }
 
         public abstract bool IsMatch(int valueToTest);

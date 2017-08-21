@@ -14,7 +14,7 @@ namespace FizzBuzz.Test {
         public void ProcessValuesForFizzBuzzTupleMethod_AllMultiplesValues_True() {
             var result = Data.MultiplesOfThree().ProcessValuesForFizzBuzz(
                 "Fizz",
-                ("Fizz", (v)=> v%3==0)                
+                ("Fizz", (v) => v % 3 == 0)
             );
             Assert.IsTrue(result);
         }
